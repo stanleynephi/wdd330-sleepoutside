@@ -9,6 +9,14 @@ export function qs(selector, parent = document) {
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+
+export function getParam(param) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  return urlParams.get(param);
+}
+
+
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
@@ -21,3 +29,5 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+
