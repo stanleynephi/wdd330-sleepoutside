@@ -51,10 +51,11 @@
         addProductToCart(product){
             /**logic to adding product to cart */
             let cartItems = getLocalStorage("so-cart");
+            console.log(product)
             if(!Array.isArray(cartItems)){
                 cartItems = [];
             }
-            cartItems.push(product);
+            cartItems.push(this.product);
             setLocalStorage("so-cart",cartItems);
         }
 

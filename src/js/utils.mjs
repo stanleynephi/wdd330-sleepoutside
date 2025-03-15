@@ -31,3 +31,10 @@ export function getParams(params){
     const product = urlParams.get("product");
     return product;
 }
+
+/** function to renderlistwithtemplate */
+export function renderlistwithtemplate(templatefunc,parentelement,list,position = "afterbegin",clear = false){
+        // /**map each item in the product to the productcard function */
+        const htmltemplate = list.map(templatefunc)
+        this.listElement.insertAdjacentHTML(position,htmltemplate.join(""))
+}
