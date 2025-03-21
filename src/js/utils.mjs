@@ -36,5 +36,42 @@ export function getParams(params){
 export function renderlistwithtemplate(templatefunc,parentelement,list,position = "afterbegin",clear = false){
         // /**map each item in the product to the productcard function */
         const htmltemplate = list.map(templatefunc)
-        this.listElement.insertAdjacentHTML(position,htmltemplate.join(""))
+        if(clear){
+            parentelement.innerHTML = ""
+        }
+       parentelement.insertAdjacentHTML(position,htmltemplate.join(""))
+}
+
+/**function to render with template the header and the foooter */
+export function renderwithtemplate(templatefunc,parentelement,data,callback){
+  /**refactor this code to show the header and the footer element */
+  parentelement.insertAdjacentHTML("afterbegin",templatefunc)
+
+  if(callback){
+    callback(data)
+  }
+}
+
+/**function to load the html template for the header and the footer */
+async function loadtemplate(path){
+  /**calls the html header and footer file */
+  const response = await fetch(path);
+  const html = await response.text();
+  return html;
+}
+
+/**load header and footer that can be exported and used to render the header and the footer
+ */
+export default async function loadheaderfooter(){
+  /**load the template */
+  const header = await loadtemplate("../partials/header.html");
+  const footer = await loadtemplate("../partials/footer.html")
+
+  /**call the parent element */
+  const headerelement = document.getElementById("header")
+  const footerelement = document.getElementById("footer")
+
+  /**render the template into the page */
+  renderwithtemplate(header,headerelement)
+  renderwithtemplate(footer,footerelement)
 }
