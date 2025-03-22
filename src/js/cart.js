@@ -1,43 +1,15 @@
-import { getLocalStorage } from "./utils.mjs";
+// import { getLocalStorage } from "./utils.mjs";
+import loadheaderfooter, { getLocalStorage } from "./utils.mjs";
+import shopping  from "./shoppingcart.mjs";
+import { getcart } from "./shoppingcart.mjs";
 
-function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
-  
-  if(!Array.isArray (cartItems) || cartItems.length === 0){
-    console.log("Cart is empty");
-    document.querySelector(".product-list").innerHTML = emptycart()
-    
-  }
-  else{
-    const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-    document.querySelector(".product-list").innerHTML = htmlItems.join("");
-  }
-}
+loadheaderfooter()
+const container = document.querySelector(".product-list")
+const key = getcart("so-cart")
+const shopclass = new shopping(key,container)
+shopclass.init()
+console.log(shopclass)
 
-function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
 
-  return newItem;
-}
 
-function emptycart(){
-  const emptyCart = `<li class="cart Notice">
-  <h2 class="card__name">Cart is empty</h2>
-</li>`;
-  return emptyCart;
-}
 
-renderCartContents();

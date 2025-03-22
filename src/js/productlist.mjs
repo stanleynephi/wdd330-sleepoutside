@@ -7,9 +7,9 @@ import { renderlistwithtemplate } from "./utils.mjs"
 /** function for the card templates that can be used for the card rendering */
 function productcard(product){
     return`<li class="product-card">
-  <a href="product_pages/index.html?product=${product.Id}">
+  <a href="../product_pages/index.html?product=${product.Id}">
   <img
-    src="${product.Image}"
+    src="${product.Images.PrimaryMedium}"
     alt="Image of ${product.Name}"
   />
   <h3 class="card__brand">${product.Brand.Name}</h3>
@@ -27,14 +27,15 @@ export default class productlist{
 
     /** to get the data from the datasource and then pass it to the code */
     async init(){
-        const productlists  = await this.datasource.getData()
+        const productlists  = await this.datasource.getData(this.category)
         console.log(productlists)
+        document.querySelector(".title").innerHTML = this.category
         this.renderlist(productlists)
     }
 
     /**function to render the list of products */
     renderlist(productlists){
-        renderlistwithtemplate(this.listelement,productcard,productlists)
+        renderlistwithtemplate(productcard,this.listelement,productlists)
     }
 
 }
