@@ -40,3 +40,34 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+export function renderWithTemplate(
+  template,
+  parentElement,
+  data,
+  callback
+) {
+  //const htmlStrings = list.map(templateFn);
+  parentElement.innerHTML = template;
+
+  if (callback) {
+    callback(data);
+  }
+}
+
+export async function loadTemplate(path) {
+  const res = await fetch(path);
+  const template = await res.text();
+  return template;
+}
+
+export default async function loadheaderfooter(){
+  const header = await loadTemplate("../partials/header.html");
+  const footer = await loadTemplate("../partials/footer.html")
+
+  const headerelement = document.getElementById("header")
+  const footerelement = document.getElementById("footer")
+
+  renderWithTemplate(header,headerelement)
+  renderWithTemplate(footer,footerelement)
+}
