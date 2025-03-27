@@ -19,7 +19,7 @@ export default class productList {
 }
 
 async init() {
-    const list = await this.dataSource.getData();
+    const list = await this.dataSource.getData(this. category);
     this.renderList(list);
 }
 
@@ -27,4 +27,9 @@ renderList(list) {
     const  htmlStrings = list.map(productCardTemplete);
     this.listElement. insertAdjacentHTML("afterbegin", htmlStrings.json(""));
 }
+}
+
+export function getParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
 }

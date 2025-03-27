@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Listing</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../product_listing/styles.css" />
+    <script src="../src/js/product_listing.js" type="module"></script>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="divider">
+      <div class="logo">
+        <img src="../images/noun_Tent_2517.svg" alt="Tent logo" />
+        <a href="../index.html">Sleep<span class="highlight">Outside</span></a>
+      </div>
+      <nav>
+        <a href="index.html?category=tents">Tents</a>
+        <a href="index.html?category=backpacks">Backpacks</a>
+        <a href="index.html?category=sleeping-bags">Sleeping Bags</a>
+        <a href="index.html?category=hammocks">Hammocks</a>
+        <a href="../cart/index.html">Cart</a>
+      </nav>
+    </header>
+
+    <main class="divider">
+      <!-- Dynamic Product Listing Section -->
+      <section class="product-list"></section>
+
+      <section class="product-images">
+        <div class="category-images">
+          <img src="../product_listing/tent.png" alt="Tents" />
+          <img src="../product_listing/backpacks.png" alt="Backpacks" />
+          <img src="../product_listing/sleeping.png" alt="Sleeping Bags" />
+          <img src="../product_listing/hammock.png" alt="Hammocks" />
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Outdoor Gear.</p>
+    </footer>
+  </body>
+</html>
