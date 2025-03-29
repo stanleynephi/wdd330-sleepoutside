@@ -35,11 +35,14 @@ export function getParams(params){
 /** function to renderlistwithtemplate */
 export function renderlistwithtemplate(templatefunc,parentelement,list,position = "afterbegin",clear = false){
         // /**map each item in the product to the productcard function */
-        const htmltemplate = list.map(templatefunc)
-        if(clear){
-            parentelement.innerHTML = ""
-        }
-       parentelement.insertAdjacentHTML(position,htmltemplate.join(""))
+      /**conditonal statement to execute the map function */
+     if(list){
+      const htmltemplate = list.map(templatefunc)
+      if(clear){
+          parentelement.innerHTML = ""
+      }
+      parentelement.insertAdjacentHTML(position,htmltemplate.join(""))
+     }
 }
 
 /**function to render with template the header and the foooter */
