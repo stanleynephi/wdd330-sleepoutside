@@ -32,6 +32,8 @@ export function getParams(params){
     return product;
 }
 
+
+
 /** function to renderlistwithtemplate */
 export function renderlistwithtemplate(templatefunc,parentelement,list,position = "afterbegin",clear = false){
         // /**map each item in the product to the productcard function */

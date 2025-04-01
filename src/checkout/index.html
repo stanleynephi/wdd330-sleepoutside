@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Sleep Outside | Checkout</title>
-
+    <script src="../js/checkout.js" type="module"></script>
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
@@ -18,6 +18,63 @@
     <main class="divider">
       <section class="products">
         <h2>Review & Place your Order</h2>
+        <!--checkout form that contains user data-->
+        <form>
+          <!--user data fieldset-->
+          <fieldset>
+            <legend>User Information</legend>
+            <label>
+              <span>First Name</span>
+              <input type="text" name="fname" id="fname" required />
+            </label>
+            <label>
+              <span>Last Name</span>
+              <input type="text" name="lname" id="lname" required />
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend>Billing and Shipping Address</legend>
+            <label for="">
+              <span>Street Name</span>
+              <input type="text" name="street" id="street" required />
+            </label>
+            <label for="">
+              <span>City</span>
+              <input type="text" name="city" id="city" required />
+            </label>
+            <label for="">
+              <span>State</span>
+              <input type="text" name="state" id="state" required />
+            </label>
+            <label for="">
+              <span>Zip Code</span>
+              <input type="number" name="zip" id="zip" required />
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend>Payment Information</legend>
+            <label for="">
+              <span>Credit Card Number</span>
+              <input type="tel" name="creditcardnumber" id="creditcardnumber" inputmode="numeric" maxlength="19" placeholder="1234 5678 9012 3456" required />
+            </label>
+            <label for="expirationdate">
+              <span>Expiration Date (MM/YY)</span>
+              <input type="text" name="expirationdate" id="expirationdate" placeholder="MM/YY" maxlength="5" pattern="(0[1-9]|1[0-2])\/\d{2}" required />
+            </label>            
+            <label for="">
+              <span>CVV</span>
+              <input type="text" name="cvv" id="cvv" inputmode="numeric" pattern="\d{3,4}" maxlength="4" placeholder="123(4)" required />
+            </label>
+          </fieldset>
+          <!--submit button-->
+          <button type="submit">CheckOut</button>
+        </form>
+
+        <!--order summary-->
+        <div id="orderSummary">
+          <h2>Order Summary</h2>
+          <div class="orderdetails"></div>
+        </div>
       </section>
     </main>
 
