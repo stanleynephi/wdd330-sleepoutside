@@ -1,16 +1,37 @@
 /**import the datasource that will be needed in this checkout */
-import { getLocalStorage,renderwithtemplate} from "./utils.mjs"
+import { getLocalStorage} from "./utils.mjs"
+import ExternalService from "./ExternalServices.mjs";
+
+/**new instance of external services */
+const service = new ExternalService()
 
 
+/**formdata conversion to json
+ */
+function formDataToJSON(formElement) {
+    const formData = new FormData(formElement),
+      convertedJSON = {};
 
-/**template for rendering to contain the total price from the cart*/
-function orderdetails(price){
-    return `
-        <p class="orderdetails_subtotal">Subtotal: $${price.subtotal}</p>
-        <p class="orderdetails_shipping">Shipping: $${price.shipping}</p>
-    `
+  
+    formData.forEach(function (value, key) {
+      convertedJSON[key] = value;
+    });
+    return convertedJSON;
 }
 
+/**function to get items from the localstorage and convert it into a simple form for submission */
+function packageitems(items){
+        /**since cart is already an array we will just have to map our the items in the cart */
+        const simplifiedItems = items.map((item) => {
+            return {
+              id: item.Id,
+              price: item.FinalPrice,
+              name: item.Name,
+              quantity: 1,
+            };
+          });
+          return simplifiedItems;
+}
 
 /**create a class for the checkoutprocess with the needed constructors */
 export default class checkoutprocess{
@@ -20,7 +41,7 @@ export default class checkoutprocess{
     constructor(key, parentelement){
         this.parentelement = parentelement
         this.key = key
-        this.cart = getLocalStorage(this.key)
+        this.cart = getLocalStorage(this.key)||[]
         /**totals for the cart total and the 
          * shipping total
          * tax and the order total
@@ -32,36 +53,34 @@ export default class checkoutprocess{
     }
 
     /**initialize the checkout process */
-    init(){
+    async init(){
         this.calculatesubtotal()
         this.calculatetotal()
         this.displayorderderails()
     }
 
-    /** function to calculate the total price of the items in the cart */
+    /** function to calculate the total price of the items in the cart and number of items in the cart */
     calculatesubtotal(){
         /**get the datasource and pass in the needed param */
         let price = []
         let total = this.subtotal
-        console.log(total)
 
         /**loop through the cart and get the total price */
         /**console.log the cart content */
-        console.log(this.cart)
+       
         this.cart.forEach(item => {
             price.push(item.FinalPrice)
             total = price.reduce((sum,price) => sum + price,0)
             return total
         })
         this.subtotal = total
-        console.log("Subtotal",this.subtotal)
     }
 
     /**calculate the order total after taxes and shipping */
     calculatetotal(){
         /**calculate the taxes that is needed to be paid and round it to two dp*/
         this.tax = parseInt(this.subtotal * 0.06)
-        console.log("Tax",this.tax)
+        
 
         /**calculating the shipping cost */
         let itemcount = this.cart.length
@@ -73,12 +92,11 @@ export default class checkoutprocess{
          * the cart.
          */
             this.shipping = 10 + ((itemcount - 1) * 2)
-            console.log("shipping fee",this.shipping)
+           
         }
 
         /**calculate the total order */
         this.total = this.subtotal + this.tax + this.shipping
-        console.log("Total",this.total)
     }
 
     /**render the order details to the html */
@@ -89,10 +107,33 @@ export default class checkoutprocess{
             <p class= shipping>Shipping: $${this.shipping}</p>
             <p class= tax>Tax: $${this.tax}</p>
             <p class= total>Total: $${this.total}</p>`
-        console.log(template)
         document.querySelector(this.parentelement).innerHTML = template
         return template
         
     }
+
+    /**handle form submission */
+    async checkout(){
+        // get the form element data by the form name
+        const formdetails = document.querySelector("form")
+        const order = formDataToJSON(formdetails)
+       
+
+        order.orderDate = new Date().toISOString();
+        order.orderTotal = this.total;
+        order.tax = this.tax;
+        order.shipping = this.shipping;
+        order.items = packageitems(this.cart);
+
+        try{
+            const response = await service.checkout(order);
+            return response
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+
+
 
 }

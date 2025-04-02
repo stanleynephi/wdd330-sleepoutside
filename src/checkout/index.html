@@ -12,14 +12,13 @@
   </head>
 
   <body>
-    <header class="divider" id="header">
-    </header>
+    <header class="divider" id="header"></header>
 
     <main class="divider">
       <section class="products">
         <h2>Review & Place your Order</h2>
         <!--checkout form that contains user data-->
-        <form>
+        <form method="post">
           <!--user data fieldset-->
           <fieldset>
             <legend>User Information</legend>
@@ -55,19 +54,44 @@
             <legend>Payment Information</legend>
             <label for="">
               <span>Credit Card Number</span>
-              <input type="tel" name="creditcardnumber" id="creditcardnumber" inputmode="numeric" maxlength="19" placeholder="1234 5678 9012 3456" required />
+              <input
+                type="tel"
+                name="creditcardnumber"
+                id="creditcardnumber"
+                inputmode="numeric"
+                maxlength="19"
+                placeholder="1234 5678 9012 3456"
+                required
+              />
             </label>
             <label for="expirationdate">
               <span>Expiration Date (MM/YY)</span>
-              <input type="text" name="expirationdate" id="expirationdate" placeholder="MM/YY" maxlength="5" pattern="(0[1-9]|1[0-2])\/\d{2}" required />
-            </label>            
+              <input
+                type="text"
+                name="expirationdate"
+                id="expirationdate"
+                placeholder="MM/YY"
+                maxlength="5"
+                pattern="(0[1-9]|1[0-2])\/\d{2}"
+                required
+              />
+            </label>
             <label for="">
               <span>CVV</span>
-              <input type="text" name="cvv" id="cvv" inputmode="numeric" pattern="\d{3,4}" maxlength="4" placeholder="123(4)" required />
+              <input
+                type="text"
+                name="cvv"
+                id="cvv"
+                inputmode="numeric"
+                pattern="\d{3,4}"
+                maxlength="4"
+                placeholder="123(4)"
+                required
+              />
             </label>
           </fieldset>
           <!--submit button-->
-          <button type="submit">CheckOut</button>
+          <button id="submit" type="submit">CheckOut</button>
         </form>
 
         <!--order summary-->
@@ -75,9 +99,12 @@
           <h2>Order Summary</h2>
           <div class="orderdetails"></div>
         </div>
+
+        <!--order packages-->
+        <div class="orderpackage"></div>
       </section>
     </main>
 
-   <footer id="footer"></footer>
+    <footer id="footer"></footer>
   </body>
 </html>
