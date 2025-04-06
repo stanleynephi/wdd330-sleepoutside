@@ -59,9 +59,29 @@
     <main class="divider">
       <section class="products">
         <h2>Review & Place your Order</h2>
-      </section>
-    </main>
+    
+        <form id="checkoutForm" action="/submit" method="POST" class="checkout-form">
+          <label for="firstName">First Name</label>
+          <input type="text" name="firstName" id="firstName" required />
 
+          <label for="MiddleName">Middle Name</label>
+          <input type="text" name="MiddleName" id="MiddleName" required />
+
+          <label for="LastName">Last Name</label>
+          <input type="text" name="LastName" id="LastName" required />
+      
+          <label for="cardNumber">Card Number</label>
+          <input type="text" name="cardNumber" id="cardNumber" required pattern="\d{16}" placeholder="1234 5678 9012 3456" />
+      
+          <label for="expiration">Expiration Date</label>
+          <input type="text" name="expiration" id="expiration" required placeholder="MM/YY" />
+      
+          <label for="code">Security Code</label>
+          <input type="text" name="code" id="code" required pattern="\d{3}" placeholder="123" />
+      
+          <button type="submit" id="checkoutSubmit">Place Order</button>
+        </form>
+    </main>
     <footer>&copy;NOT a real business</footer>
   </body>
 </html>
