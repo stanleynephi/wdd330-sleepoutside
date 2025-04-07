@@ -9,4 +9,5 @@ document.querySelector("#submit").addEventListener("click", (e)=> {
     e.preventDefault()
     checkout.checkout()
     console.log(checkout.checkout())
+    checkout.success()
 })

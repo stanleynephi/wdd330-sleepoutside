@@ -2,13 +2,24 @@
 const baseurl = import.meta.env.VITE_SERVER_URL
 const checkOutUrl = import.meta.env.VITE_CHECKOUT_URL
 
-function convertToJson(res) {
-  if (res.ok) {
+async function convertToJson(res) {
+  /**refactor code to convert to json before validation*/
+  const data = await fetch(res)
+  const response = await data.json()
+  if(response == 200){
     console.log("200 OK")
-    return res.json();
-  } else {
-    throw new Error("Bad Response");
+    return response.json()
   }
+  else{
+    // throw new Error("Bad Response", response)
+    throw {name: "Bad Response", message: response}
+  }
+  // if (res.ok) {
+  //   console.log("200 OK")
+  //   return res.json();
+  // } else {
+  //   throw new Error("Bad Response");
+  // }
 }
 
 export default class ExternalService {

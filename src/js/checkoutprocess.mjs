@@ -127,11 +127,19 @@ export default class checkoutprocess{
 
         try{
             const response = await service.checkout(order);
+            const data = response.json()
+            console.log(data)
             return response
         }
         catch(err){
-            console.log(err)
+            console.log("There is an error in your code",err)
         }
+    }
+
+    /**function to go the success page and then also clear ervrything in the localStorage */
+    success(){
+        window.location.href = "./success.html"
+        localStorage.removeItem(this.key)
     }
 
 
